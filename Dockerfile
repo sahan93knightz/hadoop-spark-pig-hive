@@ -23,15 +23,15 @@ RUN apt-get update \
     && apt-get -y install openjdk-8-jdk \
     && apt-get -y install vim
 
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-arm64
 ENV PATH $JAVA_HOME/bin:$PATH
 
 # hadoop
-RUN curl -s http://www.eu.apache.org/dist/hadoop/common/hadoop-2.9.2/hadoop-2.9.2.tar.gz | tar -xz -C /usr/local/
+RUN curl -s https://archive.apache.org/dist/hadoop/core/hadoop-2.9.2/hadoop-2.9.2.tar.gz | tar -xz -C /usr/local/
 RUN cd /usr/local && ln -s ./hadoop-2.9.2 hadoop
 
 ENV HADOOP_PREFIX /usr/local/hadoop
-RUN sed -i '/^export JAVA_HOME/ s:.*:export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64\nexport HADOOP_PREFIX=/usr/local/hadoop\nexport HADOOP_HOME=/usr/local/hadoop\n:' $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh
+RUN sed -i '/^export JAVA_HOME/ s:.*:export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-arm64\nexport HADOOP_PREFIX=/usr/local/hadoop\nexport HADOOP_HOME=/usr/local/hadoop\n:' $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh
 RUN sed -i '/^export HADOOP_CONF_DIR/ s:.*:export HADOOP_CONF_DIR=/usr/local/hadoop/etc/hadoop/:' $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh
 #RUN . $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh
 
@@ -87,7 +87,7 @@ RUN ln -s $PIG_HOME /usr/local/pig
 ENV PATH $PATH:$PIG_HOME/bin
 
 # hive
-RUN curl -s http://apache.mirror.anlx.net/hive/hive-2.3.5/apache-hive-2.3.5-bin.tar.gz  | tar -xz -C /usr/local
+RUN curl -s https://archive.apache.org/dist/hive/hive-2.3.5/apache-hive-2.3.5-bin.tar.gz  | tar -xz -C /usr/local
 ENV HIVE_HOME /usr/local/apache-hive-2.3.5-bin/
 RUN ln -s $HIVE_HOME /usr/local/hive
 ENV PATH $PATH:$HIVE_HOME/bin
@@ -114,7 +114,7 @@ RUN apt-get install -y python-pip \
     && pip install mrjob
 
 # spark
-RUN curl -s https://www-eu.apache.org/dist/spark/spark-2.4.3/spark-2.4.3-bin-without-hadoop-scala-2.12.tgz | tar -xz -C /usr/local
+RUN curl -s https://archive.apache.org/dist/spark/spark-2.4.3/spark-2.4.3-bin-without-hadoop-scala-2.12.tgz | tar -xz -C /usr/local
 ENV SPARK_HOME /usr/local/spark-2.4.3-bin-without-hadoop-scala-2.12/
 RUN ln -s $SPARK_HOME /usr/local/spark
 ENV PATH $PATH:$SPARK_HOME/bin
