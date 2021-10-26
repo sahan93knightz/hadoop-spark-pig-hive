@@ -119,6 +119,8 @@ ENV SPARK_HOME /usr/local/spark-2.4.3-bin-without-hadoop-scala-2.12/
 RUN ln -s $SPARK_HOME /usr/local/spark
 ENV PATH $PATH:$SPARK_HOME/bin
 ADD spark-env.sh $SPARK_HOME/conf/spark-env.sh
+RUN chown root:root $SPARK_HOME/conf/spark-env.sh
+RUN chmod 700 $SPARK_HOME/conf/spark-env.sh
 
 ADD bootstrap.sh /etc/bootstrap.sh
 RUN chown root:root /etc/bootstrap.sh
