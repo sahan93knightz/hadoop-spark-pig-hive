@@ -9,21 +9,29 @@ Find this on Docker Hub [https://hub.docker.com/r/sahan93/hadoop-spark-pig-hive]
 
 # Build the image
 
-```
+```shell
 docker build  -t sahan93/hadoop-spark-pig-hive:2.9.2 .
 ```
 # Pull the image
 
-```
+```shell
 docker pull sahan93/hadoop-spark-pig-hive:2.9.2
 ```
 
 # Start a container
 
+## Using docker cli
+
 In order to use the Docker image you have just build or pulled use:
 
-```
+```shell
 docker run -it -p 50070:50070 -p 8088:8088 -p 8080:8080 sahan93/hadoop-spark-pig-hive:2.9.2 bash
+```
+
+## Using Docker Compose
+
+```shell
+docker-compose up -d
 ```
 
 ## Testing
